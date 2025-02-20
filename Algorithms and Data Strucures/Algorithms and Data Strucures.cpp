@@ -1,5 +1,6 @@
 #include <iostream>
 #include "sorting_algorithms.h"
+#include <algorithm>
 
 
 int main() {

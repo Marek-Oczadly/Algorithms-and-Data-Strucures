@@ -1,6 +1,5 @@
 #pragma once
-#include <algorithm>
-#include <climits>
+
 
 template <typename T>
 class SortingAlgorithms {
@@ -15,8 +14,8 @@ private:
 		T max_val = std::max({ L[n_l - 1], R[n_r - 1] });
 		L[n_l] = max_val;
 		R[n_r] = max_val;
-		T* i = start;
-		T* j = mid + 1;
+		T* i = L;
+		T* j = R;
 		for (T* k = start; k <= end; ++k) {
 			if (*i <= *j) {
 				*k = *i;
@@ -65,6 +64,6 @@ public:
 	}
 
 	static void mergeSort(T* start, T* end) {
-		mergeSort_(start, end-+1);
+		mergeSort_(start, end-1);
 	}
 };

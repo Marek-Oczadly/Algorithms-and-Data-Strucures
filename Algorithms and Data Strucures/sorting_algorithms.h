@@ -1,9 +1,11 @@
 #pragma once
-
+#include <algorithm>
 
 template <typename T>
 class SortingAlgorithms {
 private:
+	typedef void(*FuncPtr)(T*, T*);
+
 	static void merge(T* start, T* mid, T* end) {
 		const unsigned int n_l = mid - start + 1;
 		const unsigned int n_r = end - mid;
@@ -12,19 +14,13 @@ private:
 		std::copy(start, mid + 1, L);
 		std::copy(mid + 1, end + 1, R);
 		T max_val = std::max({ L[n_l - 1], R[n_r - 1] });
-		L[n_l] = max_val;
-		R[n_r] = max_val;
-		T* i = L;
-		T* j = R;
+		L[n_l] = max_val; R[n_r] = max_val;
+		T* i = L; T* j = R;
 		for (T* k = start; k <= end; ++k) {
-			if (*i <= *j) {
-				*k = *i;
-				++i;
-			} else {
-				*k = *j;
-				++j;
-			}
+			if (*i <= *j) { *k = *i; ++i; }
+			else { *k = *j; ++j; }
 		}
+		// Freeing the memory
 		delete[] R;
 		delete[] L;
 	}
@@ -65,5 +61,18 @@ public:
 
 	static void mergeSort(T* start, T* end) {
 		mergeSort_(start, end-1);
+	}
+
+	static bool isCorrect(T* start, T* end, FuncPtr func) {
+		const unsigned int size = end - start;
+		T* copy = new T[size];
+		std::copy(start, end, copy);
+		std::sort(copy, copy + size);
+		func(start, end);
+
+		for (int i = 0; i < size; ++i) {
+			if (copy[i] != *(start + i)) { return false; }
+		}
+		return true;
 	}
 };

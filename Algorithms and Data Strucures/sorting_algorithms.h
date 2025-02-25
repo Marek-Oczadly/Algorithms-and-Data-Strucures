@@ -81,16 +81,16 @@ public:
 		mergeSort_(start, end-1);
 	}
 
-	///// @brief Checks if a sorting algorithm sorts the array in ascending order
-	///// @param start - The start of the array being sorted
-	///// @param end - The end of the array being sorted
-	///// @param func - The sorting function being tested
-	///// @return - True if the array is sorted after being passed through the algorithm
-	//static bool isCorrect(T* start, T* end, SortFunction func) {
-	//	func(start, end);
-	//	for (const T* i = start + 1; i < end; ++i) {
-	//		if (*(i - 1) > *i) return false;
-	//	}
-	//	return true;
-	//}
+	/// @brief Checks if a sorting algorithm sorts the array in ascending order
+	/// @param start - The start of the array being sorted
+	/// @param end - The end of the array being sorted
+	/// @param func - The sorting function being tested
+	/// @return - True if the array is sorted after being passed through the algorithm
+	static bool isCorrect(T* start, T* end, SortFunction func) {
+		func(start, end);
+		for (const T* i = start + 1; i < end; ++i) {
+			if (*(i - 1) > *i) return false;
+		}
+		return true;
+	}
 };

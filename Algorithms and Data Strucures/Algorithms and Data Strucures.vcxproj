@@ -130,6 +130,7 @@
     <ClCompile Include="Algorithms and Data Strucures.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="comparison_counter.h" />
     <ClInclude Include="sorting_algorithms.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

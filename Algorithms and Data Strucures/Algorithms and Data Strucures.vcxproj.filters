@@ -23,5 +23,8 @@
     <ClInclude Include="sorting_algorithms.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="comparison_counter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

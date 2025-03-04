@@ -1,4 +1,5 @@
 #pragma once
+#include <algorithm>
 
 /// @brief A series of static functions for sorting data
 /// @tparam T the type of the data being sorted
@@ -7,6 +8,7 @@ class SortingAlgorithms {
 private:
 	/// @brief Typedef for a sorting function
 	typedef void(*SortFunction)(T*, T*);
+	typedef bool(*OrderFunction(const T*, const T*));
 
 	/// @brief Merges 2 sorted arrays in a merge sort
 	/// @param start The start of the array being merged
@@ -43,6 +45,38 @@ private:
 		}
 	}
 
+	static T* left(T* start, T* i) noexcept {
+		++i;
+		return start + 2 * (i - start) -1;
+	}
+
+	static const T* left(const T* start, const T* i) noexcept {
+		++i;
+		return start + 2 * (i - start) - 1;
+	}
+
+	static T* right( T* start, T* i) noexcept {
+		++i;
+		return start + 2 * (i - start);
+	}
+
+	static const T* right(const T* start, const T* i) noexcept {
+		++i;
+		return start + 2 * (i - start);
+	}
+
+	static void makeHeap(T* start, T* end, T* i) {
+		T* l = left(start, i);
+		T* r = right(start, i);
+ 		T* big = i;
+		if (l < end and *l > *big) big = l;
+		if (r < end and *r > *big) big = r;
+		if (big != i) {
+			std::swap(*i, *big);
+			makeHeap(start, end, big);
+		}
+	}
+
 public:
 	/// @brief Implements the selection sort algorithm to sort an array
 	/// @param start The start of the array being sorted
@@ -74,12 +108,37 @@ public:
 		}
 	}
 
+	static void heapSort(T* start, T* end) {
+
+	}
+
 	/// @brief Uses the merge sort algorithm to sort an array
 	/// @param start Start of the array being sorted
 	/// @param end End (not inclusive) of the array being sorted
 	static void mergeSort(T* start, T* end) {
 		mergeSort_(start, end-1);
 	}
+
+	static bool isSorted(const T* start, const T* end) {
+		for (const T* i = start + 1; i < end; ++i) {
+			if (*(i - 1) > *i) return false;
+		}
+		return true;
+	}
+
+	static bool isHeapSorted(const T* start, const T* end) {
+		const unsigned int size = end - start;
+		for (const T* i = start; i <= start + size / 2; ++i) {
+			const T* l, * r;
+			l = left(start, i);
+			r = right(start, i);
+			if (*l > *i or *r > *i) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 
 	/// @brief Checks if a sorting algorithm sorts the array in ascending order
 	/// @param start - The start of the array being sorted
@@ -88,9 +147,13 @@ public:
 	/// @return - True if the array is sorted after being passed through the algorithm
 	static bool isCorrect(T* start, T* end, SortFunction func) {
 		func(start, end);
-		for (const T* i = start + 1; i < end; ++i) {
-			if (*(i - 1) > *i) return false;
+		return isSorted(start, end);
+	}
+
+	static void buildMaxHeap(T* start, T* end) {
+		const unsigned int SIZE = end - start;
+		for (T* i = start + (SIZE / 2); i >= start; --i) {
+			makeHeap(start, end, i);
 		}
-		return true;
 	}
 };

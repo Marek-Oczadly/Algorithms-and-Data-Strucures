@@ -17,7 +17,8 @@ public:
 	static void resetCount() noexcept {
 		ComparisonCounter<T>::count = 0;
 	}
-	ComparisonCounter() {}
+	ComparisonCounter() : value(T()) {}
+
 	ComparisonCounter(const T& value) : value(value) {}
 	ComparisonCounter(const ComparisonCounter<T>& other) {
 		value = other.value;

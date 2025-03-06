@@ -45,35 +45,23 @@ private:
 		}
 	}
 
-	static T* left(T* start, T* i) noexcept {
-		++i;
-		return start + 2 * (i - start) -1;
+	static T* partition(T* start, T* end) {
+		T* i = start;
+		for (T* j = start; j <= end - 1; ++j) {
+			if (*j <= *end) {
+				std::swap(*i, *j);
+				++i;
+			}
+		}
+		std::swap(*i, *end);
+		return i;
 	}
 
-	static const T* left(const T* start, const T* i) noexcept {
-		++i;
-		return start + 2 * (i - start) - 1;
-	}
-
-	static T* right( T* start, T* i) noexcept {
-		++i;
-		return start + 2 * (i - start);
-	}
-
-	static const T* right(const T* start, const T* i) noexcept {
-		++i;
-		return start + 2 * (i - start);
-	}
-
-	static void makeHeap(T* start, T* end, T* i) {
-		T* l = left(start, i);
-		T* r = right(start, i);
- 		T* big = i;
-		if (l < end and *l > *big) big = l;
-		if (r < end and *r > *big) big = r;
-		if (big != i) {
-			std::swap(*i, *big);
-			makeHeap(start, end, big);
+	static void quickSort_(T* start, T* end) {
+		if (start < end) {
+			T* m = partition(start, end);
+			quickSort_(start, m-1);
+			quickSort_(m + 1, end);
 		}
 	}
 
@@ -93,6 +81,10 @@ public:
 		}
 	}
 
+	static void quickSort(T* start, T* end) {
+		quickSort_(start, end-1);
+	}
+
 	/// @brief Implements the insertion sort algorithm to sort an array
 	/// @param start The start of the array being sorted
 	/// @param end The end of the array being sorted
@@ -108,9 +100,7 @@ public:
 		}
 	}
 
-	static void heapSort(T* start, T* end) {
-
-	}
+	static void heapSort(T* start, T* end);
 
 	/// @brief Uses the merge sort algorithm to sort an array
 	/// @param start Start of the array being sorted
@@ -126,18 +116,7 @@ public:
 		return true;
 	}
 
-	static bool isHeapSorted(const T* start, const T* end) {
-		const unsigned int size = end - start;
-		for (const T* i = start; i <= start + size / 2; ++i) {
-			const T* l, * r;
-			l = left(start, i);
-			r = right(start, i);
-			if (*l > *i or *r > *i) {
-				return false;
-			}
-		}
-		return true;
-	}
+	
 
 
 	/// @brief Checks if a sorting algorithm sorts the array in ascending order

@@ -47,21 +47,27 @@ private:
 
 	static T* partition(T* start, T* end) {
 		T* i = start;
-		for (T* j = start; j <= end - 1; ++j) {
+		for (T* j = start; j < end; ++j) {
 			if (*j <= *end) {
 				std::swap(*i, *j);
 				++i;
 			}
 		}
 		std::swap(*i, *end);
+
+		for (T* i = start; i <= end; ++i) {
+			std::cout << *i << ' ';
+		}
+		std::cout << std::endl;
 		return i;
 	}
 
 	static void quickSort_(T* start, T* end) {
 		if (start < end) {
 			T* m = partition(start, end);
-			quickSort_(start, m-1);
+			quickSort_(start, m - 1);
 			quickSort_(m + 1, end);
+
 		}
 	}
 
@@ -82,7 +88,7 @@ public:
 	}
 
 	static void quickSort(T* start, T* end) {
-		quickSort_(start, end-1);
+		quickSort_(start, end - 1);
 	}
 
 	/// @brief Implements the insertion sort algorithm to sort an array
@@ -106,7 +112,7 @@ public:
 	/// @param start Start of the array being sorted
 	/// @param end End (not inclusive) of the array being sorted
 	static void mergeSort(T* start, T* end) {
-		mergeSort_(start, end-1);
+		mergeSort_(start, end - 1);
 	}
 
 	static bool isSorted(const T* start, const T* end) {
@@ -116,7 +122,23 @@ public:
 		return true;
 	}
 
-	
+	static T* binarySearch(T* start, T* end, const T& value) {
+		while (start < end) {
+			T* mid = start + (end - start) / 2;
+			if (*mid == value) {
+				return mid;
+			}
+			else if (*mid > value) {
+				start = mid + 1;
+			}
+			else {
+				end = mid - 1;
+			}
+		}
+		return nullptr;
+	}
+
+
 
 
 	/// @brief Checks if a sorting algorithm sorts the array in ascending order

@@ -11,13 +11,12 @@ int main() {
 	const unsigned short SIZE = sizeof(x) / sizeof(CInt);
 	CInt::resetCount();
 	
-	Algos::quickSort(&x[0], &x[0] + SIZE);
+	Algos::insertionSort(&x[0], &x[0] + SIZE);
+
+	CInt* ptr = Algos::binarySearch(&x[0], &x[0] + SIZE, CInt(12));
+
+	std::cout << *ptr << std::endl;
 	
-	for (const CInt* i = &x[0]; i < &x[0] + SIZE; ++i) { std::cout << *i << ' '; }
-	std::cout << std::endl;
-
-	std::cout << CInt::getCount() << std::endl;
-
 	if (Algos::isSorted(&x[0], &x[0] + SIZE)) { std::cout << "True \n";	}
 	else { std::cout << "False \n"; }
 	

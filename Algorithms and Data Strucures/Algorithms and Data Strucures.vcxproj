@@ -130,6 +130,7 @@
     <ClCompile Include="Algorithms and Data Strucures.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BinarySearchTree.h" />
     <ClInclude Include="comparison_counter.h" />
     <ClInclude Include="Heap.h" />
     <ClInclude Include="sorting_algorithms.h" />

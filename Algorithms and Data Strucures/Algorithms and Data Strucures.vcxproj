@@ -132,6 +132,7 @@
   <ItemGroup>
     <ClInclude Include="BinarySearchTree.h" />
     <ClInclude Include="comparison_counter.h" />
+    <ClInclude Include="Dynamic_Programming.h" />
     <ClInclude Include="Heap.h" />
     <ClInclude Include="sorting_algorithms.h" />
   </ItemGroup>

@@ -2,11 +2,17 @@
 #include <initializer_list>
 #include <algorithm>
 #include <string>
+#include <iostream>
 
 
 struct Event {
 	std::string name;
 	double start_time, end_time;
+
+	friend std::ostream& operator<<(std::ostream& os, const Event& obj) {
+		os << obj.name << "(" << obj.start_time << ", " << obj.end_time << ")";
+		return os;
+	}
 };
 
 class GreedyAlgorithm {
@@ -24,4 +30,13 @@ public:
 			return a.end_time < b.end_time;
 		});
 	}
+
+	friend std::ostream& operator<<(std::ostream& os, const GreedyAlgorithm& obj) {
+		for (Event* i = obj.events; i < obj.events + obj.num_events - 1; ++i) {
+			os << *i << "\n";
+		}
+		os << *(obj.events + obj.num_events - 1);
+		return os;
+	}
+	
 };

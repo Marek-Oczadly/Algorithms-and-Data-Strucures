@@ -35,5 +35,8 @@
     <ClInclude Include="Dynamic_Programming.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="search.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
